@@ -1,0 +1,61 @@
+made by x0loft 
+written in python
+you can customize what the email says i made it say something about a roofing company
+
+
+
+
+import smtplib
+from email.mime.text import MIMEText
+
+def send_email(to_email, subject, body):
+    # Replace with your email credentials
+    sender_email = 'your_email@gmail.com'
+    sender_password = 'your_password'
+
+    # Set up the email server
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+
+    # Log in to your email account
+    server.login(sender_email, sender_password)
+
+    # Create the email message
+    message = MIMEText(body)
+    message['Subject'] = subject
+    message['From'] = sender_email
+    message['To'] = to_email
+
+    # Send the email
+    server.sendmail(sender_email, to_email, message.as_string())
+
+    # Close the server connection
+    server.quit()
+
+if __name__ == "__main__":
+    # Replace with the recipient's email address
+    recipient_email = 'client@example.com'
+
+    # Email content
+    email_subject = 'Roofing Services Inquiry'
+    email_body = """
+    Dear [Client's Name],
+
+    We hope this email finds you well. Our roofing company, XYZ Roofers, specializes in high-quality roofing services. Whether you need a roof repair, replacement, or new installation, we've got you covered.
+
+    [Add more details about your services, pricing, and any special offers]
+
+    If you have any questions or would like to schedule a consultation, please feel free to reply to this email or give us a call at [Your Phone Number].
+
+    Thank you for considering XYZ Roofers for your roofing needs. We look forward to the opportunity to serve you.
+
+    Best regards,
+    [Your Name]
+    XYZ Roofers
+    [Your Contact Information]
+    """
+
+    # Send the email
+    send_email(recipient_email, email_subject, email_body)
+
+    print(f"Email sent to {recipient_email}")
